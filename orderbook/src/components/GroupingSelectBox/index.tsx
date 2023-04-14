@@ -2,7 +2,7 @@ import React, { ChangeEvent, FunctionComponent } from 'react';
 
 import { Container } from "./Container";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { selectGrouping, setGrouping } from "../OrderBook/orderbookSlice";
+import { selectGrouping, setGrouping } from "../Orderbook/OrderBookSlice";
 
 interface GroupingSelectBoxProps {
   options: number[]

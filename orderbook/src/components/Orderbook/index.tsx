@@ -6,7 +6,7 @@ import { Container, TableContainer } from "./styles";
 import PriceLevelRow from "./PriceLevelRow";
 import Spread from "../Spread";
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { addAsks, addBids, addExistingState, selectAsks, selectBids } from './orderbookSlice';
+import { addAsks, addBids, addExistingState, selectAsks, selectBids } from './OrderBookSlice';
 import { MOBILE_WIDTH, ORDERBOOK_LEVELS } from "../../constants";
 import Loader from "../Loader";
 import DepthVisualizer from "../DepthVisualizer";

@@ -1,4 +1,4 @@
-import reducer, { addAsks, addBids, addExistingState, OrderbookState } from './orderbookSlice'
+import reducer, { addAsks, addBids, addExistingState, OrderbookState } from './OrderBookSlice'
 
 test('should return the initial state', () => {
   // @ts-ignore

@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import OrderBook from "./components/OrderBook";
 import Footer from "./components/Footer";
 import StatusMessage from "./components/StatusMessage";
-import { clearOrdersState } from "./components/OrderBook/orderbookSlice";
+import { clearOrdersState } from "./components/Orderbook/OrderBookSlice";
 import { useAppDispatch } from "./hooks";
 
 export const ProductIds = {

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import orderbookReducer from './components/OrderBook/orderbookSlice';
+import orderbookReducer from './components/Orderbook/orderbook';
 
 export const store = configureStore({
   reducer: {
