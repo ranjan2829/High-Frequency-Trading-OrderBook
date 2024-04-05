@@ -39,16 +39,37 @@ class OrderBookLevelInfos{
     public:
     OrderBookLevelInfos(const LevelInfos& bids,const LevelInfos& ask)
          : bids_{bids}
-         , asks_{asks}
+         , asks_{ asks }
     {}
     const LevelInfos& GetBids() const {return bids_;}
     const LevelInfos& GetBids() const {return asks_;}
     private:
     LevelInfos bids_;
     LevelInfos asks_;
-    
 
 
+
+}
+class Order{
+    public :
+    Order(OrderType orderType,OrderID orderId , Side side,Price price,Quantity quantity){
+        :orderType_{orderType}
+        ,orderId_{OrderId}
+        ,side_{side}
+        ,price_{price}
+        ,intialQuantity_{quantity}
+        ,remainingQuantity{quantity}
+    {}
+    OrderId GetOrderID() const {return orderId_;}
+    Side GetSide() const {return side_;}
+    Price GetPrice() const {return price_;}
+    OrderType GetOrderType() const {return orderType_;}
+    Quantity GetInitialQuantity() const {return initialQuantity_;}
+    Quantity GetRemainingQuantity() const {return remainingQuantity_;}
+    Quantity GetFilledQuantity() const {return GetInitialQuantity()-GetRemainingQuantity();}
+    void
+
+    }
 }
 
 
