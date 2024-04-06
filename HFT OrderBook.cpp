@@ -67,9 +67,21 @@ class Order{
     Quantity GetInitialQuantity() const {return initialQuantity_;}
     Quantity GetRemainingQuantity() const {return remainingQuantity_;}
     Quantity GetFilledQuantity() const {return GetInitialQuantity()-GetRemainingQuantity();}
-    void
-
+    void Fill(Quantity quantity){
+        if(quantity >GetRemainingQuantity()){
+            throw std::logic_error(std::format("Orddr ({}) cannot be filled for more than it's remaining quantity . ",GetOrderID()));
+        }
+        remainingQuantity -=quantity;
     }
+    private:
+    OrderType orderType_;;
+    OrderId orderId_;
+    Side side_;
+    Price price_;
+    Quantity initialQuantity_;
+    Quantity remainingQuantity_;
+
+    };
 }
 
 
