@@ -143,13 +143,22 @@ private:
     std::map<Price,OrderPointers ,std::less<Price>> asks_;
     std::unordered_map<OrderID,OrderEntry> orders_;
     bool CanMatch(Side side, Price price) const {
-        if(side==Side::Buy){
-            if(asks_.empty()){
+        if(side==Side::Buy) {
+            if (asks_.empty()) {
                 return false;
-                const auto& [bestAsk,_]=*asks_.begin();
-                return price>=bestAsk;
-
             }
+            const auto &[bestAsk, _] = *asks_.begin();
+            return price >= bestAsk;
+
+
+
+        }
+        else{
+            if(bids_.empty()){
+                return false;
+            }
+            const auto& [bestBid,_]=*bids_.begin();
+            return price<=bestBid;
         }
     }
 
