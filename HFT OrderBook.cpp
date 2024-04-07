@@ -161,6 +161,67 @@ private:
             return price<=bestBid;
         }
     }
+    Trades MatchOrders(){
+        Trades trades;
+        trades.reserve(orders_.size());
+        while(true){
+            if(bids_.empty()||asks_.empty()){
+                break;
+            }
+            auto& [bidPrice,bids]=*bids_.begin();
+            auto& [askPrice,asks]=*asks_.begin();
+            if(bidPrice<askPrice){
+                break;
+            }
+            while(bids.size()&&asks.size()){
+                auto& bid=bids.front();
+                auto& ask=asks.front();
+                Quantity quantity =std::min(bid->GetRemainingQuantity(),ask->GetReminingQuantity());
+                bid->Fill(quantity);
+                ask->Fill(quantity);
+                if(bid->IsFilled()){
+                    bids.pop_front();
+                    orders_.erase(bid->GetOrderId());
+                }
+                if(ask->IsFilled()){
+                    asks.pop_front();
+                    orders_.erase(ask->GetOrderId());
+                }
+                if(bids.empty()){
+                    bids_.erase(bidPrice);
+                }
+                if(asks.empty()){
+                    asks_.erase(askPrice);
+
+                }
+                trades.push_back(Trade{TradeInfo{bid->GetOrderId(), bid->GetPrice(), quantity},
+                                       TradeInfo{bid->GetOrderId(), bid->GetPrice(), quantity}
+                });
+
+
+
+
+
+            }
+        }
+        if(!bids_.empty()){
+            auto& [_,bids]=*bids_.begin();
+            auto& order =bids.front();
+            if(order->GetOrderType()==OrderType::FillAndKill){
+                CancelOrder(order->GetOrderId());
+            }
+        }
+        if(!asks_.empty()){
+            auto& [_,asks]=*asks_.begin();
+            auto& order =asks.front();
+            if(order->GetOrderType()==OrderType::FillAndKill){
+                CancelOrder(order->GetOrderId());
+            }
+        }
+        return trades;
+
+
+    }
 
 };
 
