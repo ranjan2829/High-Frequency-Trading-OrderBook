@@ -284,7 +284,9 @@ public:
 
         }
         std::size_t Size() const { return orders_.size();}
-        
+        OrderbookLevelInfos GetOrderInfos()  const{
+            LevelInfos
+        }
 
     }
 
