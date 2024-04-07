@@ -17,4 +17,19 @@ public:
          ,initialQuantity_{quantity}
          ,remainingQuantity_{quantity}
     {}
+    Order(OrderId orderId,Side side,Quantity quantity)
+         :Order(OrderType::Market,orderId,side,Constants::InvalidPrice,quantity)
+    {}
+    OrderId GetOderId() const { return orderId_;}
+    Side GetSide() const {return side_;}
+    Price GetPrice() const {return price_;}
+    OrderType getOrderType() const {return orderType_;}
+    Quantity GetinitialQuantity() const {return initialQuantity_;}
+    Quantity GetRemainingQuantity() const {return remainingQuantity_;}
+    Quantity GetFilledQuantity() const {return GetinitialQuantity()-GetRemainingQuantity();}
+    bool isFilled() const {return GetRemainingQuantity()==0;}
+    void Fill(Quantity quantity){
+        if{quantity > GetRemainingQuantity()}
+    }
+
 };
