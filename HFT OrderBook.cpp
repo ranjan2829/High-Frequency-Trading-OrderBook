@@ -301,6 +301,8 @@ public:
             for(const auto& [price,orders]:asks_){
                 askInfos.push_back(CreateLevelInfos(price,orders));
             }
+            return OrderBookLevelInfos{bidInfos,askInfos};
+
         }
 
     }
@@ -311,8 +313,15 @@ public:
 
 
 int main(){
-
-
+    Orderbook orderbook;
+    const OrderId orderId=1;
+    orderbook.AddOrder(std::make_shared<Order>(OrderType::GoodTillCancel))
+    std::cout<<orderbook.Size()<<std::endl;
+    orderbook.CancelOrder(orderId);
+    std::cout<<orderbook.Size()<<std::endl;
     return 0;
+
+
+    
 
 }
