@@ -4,4 +4,5 @@ project(Orderbook_market)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(Orderbook_market
-        "HFT OrderBook.cpp")
+        "HFT OrderBook.cpp"
+        Order.h)
