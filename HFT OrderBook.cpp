@@ -246,6 +246,14 @@ public:
         orders_.insert({order->GetOrderID(),OrderEntry{order,iterator}});
         return MatchOrders();
     }
+    void CancelOrder(OrderID orderId){
+        if(!orders_.contains(orderId)){
+            return;
+
+        }
+        const auto& [order,orderIterator]=orders_.at(orderId);
+
+    }
 
 };
 
