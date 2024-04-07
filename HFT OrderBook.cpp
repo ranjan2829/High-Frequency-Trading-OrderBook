@@ -252,6 +252,39 @@ public:
 
         }
         const auto& [order,orderIterator]=orders_.at(orderId);
+        orders_.erase(orderId);
+        if(order->GetSide()==Side::Sell){
+            auto price =order->GetPrice();
+            auto& orders=asks_.at(price);
+            orders_.erase(iterator);
+            if(orders.empty(price)){
+                asks_.erase(price);
+            }
+        }
+        else{
+            auto price=order->GetPrice();
+            auto& orders=bids_.at(price);
+            orders.erase(iterator);
+            if(orders.empty()){
+                bids_.erase(price);
+            }
+        }
+
+
+
+
+        Trades MatchOrder(OrderModify order){
+            if(!orders_.contains(order.GetORderId())){
+                return { };
+            }
+            const auto& [existingOrder,_]=orders_.at(order.GetOrderID());
+            CancelOrder(order.GetOrderId());
+            return AddOrder(order.ToOrderPointer(existingOrder->GetOrderType()));
+
+
+        }
+        std::size_t Size() const { return orders_.size();}
+        
 
     }
 
