@@ -228,7 +228,7 @@ public:
         if(orders_.contains(order->GetORderId())){
             return { };
         }
-        if(order->GetOrderType()==OrderType::FillAndKill&&!CanMatch(order->GetSide(),order->GetPrice())){
+        if(order->GetOrderType()==OrderType::FillAndKill && !CanMatch(order->GetSide(),order->GetPrice())){
             return { };
         }
         OrderPointers::iterator iterator;

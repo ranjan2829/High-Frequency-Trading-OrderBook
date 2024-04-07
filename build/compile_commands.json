@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/ranjanshahajishitole/Desktop/Github/Orderbook-market/build",
+  "command": "/usr/bin/clang++   -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/Orderbook_market.dir/HFT_OrderBook.cpp.o -c \"/Users/ranjanshahajishitole/Desktop/Github/Orderbook-market/HFT OrderBook.cpp\"",
+  "file": "/Users/ranjanshahajishitole/Desktop/Github/Orderbook-market/HFT OrderBook.cpp",
+  "output": "CMakeFiles/Orderbook_market.dir/HFT_OrderBook.cpp.o"
+}
+]
