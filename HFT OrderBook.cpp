@@ -222,6 +222,16 @@ private:
 
 
     }
+public:
+
+    Trades AddOrder(OrderPointer order){
+        if(orders_.contains(order->GetORderId())){
+            return { };
+        }
+        if(order->GetOrderType()==OrderType::FillAndKill&&!CanMatch(order->GetSide(),order->GetPrice())){
+            return { };
+        }
+    }
 
 };
 
