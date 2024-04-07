@@ -231,6 +231,20 @@ public:
         if(order->GetOrderType()==OrderType::FillAndKill&&!CanMatch(order->GetSide(),order->GetPrice())){
             return { };
         }
+        OrderPointers::iterator iterator;
+        if(order->GetSide()==Side::Buy){
+            auto& orders=bids_[order->GetPrice()];
+            orders.push_back(order);
+            iterator=std::next(orders.begin(),orders.size()-1);
+            
+        }
+        else{
+            auto& orders=asks_[order->GetPrice()];
+            orders.push_back(order);
+            iterator=std::next(orders.begin(),orders.size()-1);
+        }
+        orders_.insert({order->GetOrderID(),OrderEntry{order,iterator}});
+        return MatchOrders();
     }
 
 };
