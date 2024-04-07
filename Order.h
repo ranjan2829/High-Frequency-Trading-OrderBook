@@ -29,7 +29,34 @@ public:
     Quantity GetFilledQuantity() const {return GetinitialQuantity()-GetRemainingQuantity();}
     bool isFilled() const {return GetRemainingQuantity()==0;}
     void Fill(Quantity quantity){
-        if{quantity > GetRemainingQuantity()}
+        if (quantity > GetRemainingQuantity()) {
+
+
+            throw std::logic_error(
+                    std::format("Order ({}) cannot be filled for more than it's remaining quantity", GetOrderId()));
+            remainingQuantity_ -= quantity;
+        }
+
     }
+    void ToGoodTillCancel(Price price ){
+        if(GetOrderType() !=OrderType::Market){
+            throw std::logic_error(std::format("Order({}) cannot have it's price adjusted only market order can ",GetOrderId()));
+            price_=price;
+            orderType_=OrderType::GoodTillCancel;
+        }
+
+
+    };
+    private:
+    OrderType orderType_;
+    OrderId orderId_;
+    Side side_;
+    Price price_;
+    Quantity initialQuantity_;
+    Quantity remainingQuantity_;
+
+
 
 };
+using OrderPointer = std::shared_ptr<Order>;
+using OrderPointers = std::list<OrderPointer>;
