@@ -22,6 +22,7 @@
 #include <vector>
 #include "Orderbook.h"
 #include <ctime>
+#include <numeric>
 
 
 void OrderBook::PruneGoodForDaysOrders(){
@@ -40,6 +41,33 @@ void OrderBook::PruneGoodForDaysOrders(){
         now_parts.tm_hour=end.count();
         now_parts.tm_min=0;
         now_parts.tm_sec=0;
+
+        auto next=system_clock::from_time_t(mktime(&now_parts));
+        auto till =next-now+milliseconds (100);
+
+        {
+            std::unique_lock orderLocks{ordersMutex_};
+            if(shutdown_.load((std::memory_order_acquire)||shutdownConditionVariable_.wait_for(orderLocks,till)==std::cv_status::no_timeout)){
+                return;
+            }
+
+
+
+        }
+        OrderIds orderIds;
+        {
+            std::scoped_lock ordersLock{ordersMutex_};
+            for (const auto& [_,entry]:orders_){
+                const auto& [order,_]=entry;
+                if(order->GetOrderType()!=OrderType::GoodForDay){
+                    continue;
+                }
+                orderIds.push_back(order->GetOrderId());
+
+            }
+
+        }
+        CancelOrder((orderIds);)
 
 
     }
