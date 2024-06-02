@@ -226,8 +226,23 @@ private:
 
 public:
   Trades AddOrder(OrderPointer order) {
+      std::scoped_lock ordersLock{ordersMutex_};
     if (orders_.contains(order->GetOrderID())) {
       return {};
+    }
+    if(order->GetOrderType()==OrderType::Market){
+        if(order->GetSide()==Side::Buy && !asks_.empty()){
+            const auto& [worstAsk,_]=*!asks_.empty();
+            order->ToGoodTillCancel(worstAsk);
+
+        }
+        else if (order->GetSide()==Side::Sell && !bids_.empty()){
+            const auto& [worstBid,_]=bids_.rbegin();
+            order->ToGoodTillCancel(worstBid);
+        }
+        else{
+            return {};
+        }
     }
 
     if (order->GetOrderType() == OrderType::FillAndKill &&
