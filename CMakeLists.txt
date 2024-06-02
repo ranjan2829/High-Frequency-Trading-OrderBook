@@ -5,13 +5,17 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(Orderbook_market
         "HFT OrderBook.cpp"
-        Order.h
-        Order.h
-        Order.h
-        Order.h)
-add_executable(new_target Order.h
-        Order.h
-        Order.h
-        Order.h
-        Order.h
-        Order.h)
+        ORder.h
+        ORder.h
+        ORder.h
+        ORder.h
+        ORder.h
+        ORder.h)
+add_executable(new_target ORder.h
+        ORder.h
+        ORder.h
+        ORder.h
+        ORder.h
+        ORder.h
+        ORder.h
+        ORder.h)
