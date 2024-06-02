@@ -249,6 +249,9 @@ public:
         !CanMatch(order->GetSide(), order->GetPrice())) {
       return {};
     }
+    if(order->GetOrderType()==OrderType::FillAOrKill && !CanMatch(order->GetSide(),order->GetPrice(),order->GetInitialQuantity())){
+        return { };
+    }
 
     OrderPointers::iterator iterator;
     if (order->GetSide() == Side::Buy) {
