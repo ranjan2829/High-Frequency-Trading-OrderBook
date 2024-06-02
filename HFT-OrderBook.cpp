@@ -67,11 +67,21 @@ void OrderBook::PruneGoodForDaysOrders(){
             }
 
         }
-        CancelOrder((orderIds);)
+
+       CancelOrder((orderIds);
 
 
     }
 
+}
+Trades:: OrderBook::AddOrder(OrderPointer order){
+    std::scoped_lock ordersLock{ordersMutex_};
+    if(orders_.contains(order->GetOrderId())){
+        return {};
+    }
+    if(order->GetOrderType()==OrderType::Market){
+        if
+    }
 }
 
 enum class OrderType { GoodTillCancel, FillAndKill };
