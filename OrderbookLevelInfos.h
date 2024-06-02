@@ -2,7 +2,19 @@
 // Created by Ranjan shahaji shitole on 02/06/24.
 //
 
-#ifndef ORDERBOOK_MARKET_ORDERBOOKLEVELINFOS_H
-#define ORDERBOOK_MARKET_ORDERBOOKLEVELINFOS_H
+#pragma once
+#include "LevelInfo.h"
+ class OrderbookLevelInfos{
+public :
+    OrderbookLevelInfos(const LevelInfos& bids,LevelInfos& asks)
+                :bids_{bids}
+                ,asks_{asks}
+    {}
+    const LevelInfos& GetBids() const {return bids_;}
+    const LevelInfps& GetAsks() const {return asks_;}
 
-#endif //ORDERBOOK_MARKET_ORDERBOOKLEVELINFOS_H
+private:
+    LevelInfos bids_;
+    LevelInfos asks_;
+
+};
