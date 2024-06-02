@@ -61,6 +61,12 @@ public:
     OrderBook(OrderBook&&)=delete;
     void operator=(Orderbook&&)=delete;
     ~OrderBook();
+    Trades AddOrder(OrderPointers order);
+    void CancelOrder(OrderId orderId);
+    Trades ModifyOrder(OrderModify order);
+
+    std::size_t Size() const;
+    OrderbookLevelInfos GetOrderInfos() const;
 
 
 
