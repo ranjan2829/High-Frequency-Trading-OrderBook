@@ -43,7 +43,7 @@ private:
 
 
     void PruneGoodForDaysOrders();
-    void CancelORders(OrderIds orderIds);
+    void CancelOrders(OrderIds orderIds);
     void CancelOrderInternal( OrderId orderId);
     void OnOrderCancelled( OrderPointer order);
     void onOrderAdded(OrderPointer order);
