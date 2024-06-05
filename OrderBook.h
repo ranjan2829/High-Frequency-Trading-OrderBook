@@ -1,75 +1,76 @@
-//
-// Created by Ranjan shahaji shitole on 02/06/24.
-//
+#pragma once
+
 #include <map>
 #include <unordered_map>
 #include <thread>
-#include <condition_variable
+#include <condition_variable>
 #include <mutex>
 
 #include "Usings.h"
-#include "ORder.h"
+#include "Order.h"
 #include "OrderModify.h"
 #include "OrderbookLevelInfos.h"
 #include "Trade.h"
 
-class OrderBook{
+class Orderbook
+{
 private:
-    struct OrderEntry{
-        OrderPointer order_{nullptr};
-        OrderPointers ::iterator location_;
 
-    };
-    struct LevelData{
-        Quantity quantity_{};
-        Quantity count_{};
-
-        enum class Action{
-                ADD,
-                Remove,
-                MATCH,
-
-            };
+    struct OrderEntry
+    {
+        OrderPointer order_{ nullptr };
+        OrderPointers::iterator location_;
     };
 
-    std::unordered_map<Price,LevelData> data_;
-    std::map<Price,OrderPointers,std::greater<Price>> bids_;
-    std::map<Price,OrderPointers ,std::less<Price>> asks_;
-    std::unordered_map<OrderId,OrderEntry> orders_;
+    struct LevelData
+    {
+        Quantity quantity_{ };
+        Quantity count_{ };
+
+        enum class Action
+        {
+            Add,
+            Remove,
+            Match,
+        };
+    };
+
+    std::unordered_map<Price, LevelData> data_;
+    std::map<Price, OrderPointers, std::greater<Price>> bids_;
+    std::map<Price, OrderPointers, std::less<Price>> asks_;
+    std::unordered_map<OrderId, OrderEntry> orders_;
     mutable std::mutex ordersMutex_;
     std::thread ordersPruneThread_;
     std::condition_variable shutdownConditionVariable_;
-    std::atomic<bool> shutdown_{false};
+    std::atomic<bool> shutdown_{ false };
 
+    void PruneGoodForDayOrders();
 
-    void PruneGoodForDaysOrders();
     void CancelOrders(OrderIds orderIds);
-    void CancelOrderInternal( OrderId orderId);
-    void OnOrderCancelled( OrderPointer order);
-    void onOrderAdded(OrderPointer order);
+    void CancelOrderInternal(OrderId orderId);
 
-    void onOrderMatched(Price price,Quantity quantity,bool isFullFilled);
-    void UpdateLevelData(Price price, Quantity quantity,LevelData::Action action );
+    void OnOrderCancelled(OrderPointer order);
+    void OnOrderAdded(OrderPointer order);
+    void OnOrderMatched(Price price, Quantity quantity, bool isFullyFilled);
+    void UpdateLevelData(Price price, Quantity quantity, LevelData::Action action);
 
-    bool CanFullyFill(SIde side,Price price ,Quantity quantity) const;
-    bool CanMatch(Side side,Price price ) const;
+    bool CanFullyFill(Side side, Price price, Quantity quantity) const;
+    bool CanMatch(Side side, Price price) const;
     Trades MatchOrders();
+
 public:
-    OrderBook();
-    OrderBook(const OrderBook&) =delete;
-    void operator =(const OrderBook&)=delete;
-    OrderBook(OrderBook&&)=delete;
-    void operator=(Orderbook&&)=delete;
-    ~OrderBook();
-    Trades AddOrder(OrderPointers order);
+
+    Orderbook();
+    Orderbook(const Orderbook&) = delete;
+    void operator=(const Orderbook&) = delete;
+    Orderbook(Orderbook&&) = delete;
+    void operator=(Orderbook&&) = delete;
+    ~Orderbook();
+
+    Trades AddOrder(OrderPointer order);
     void CancelOrder(OrderId orderId);
     Trades ModifyOrder(OrderModify order);
 
     std::size_t Size() const;
     OrderbookLevelInfos GetOrderInfos() const;
-
-
-
-
-
 };
