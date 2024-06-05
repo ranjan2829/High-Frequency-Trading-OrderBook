@@ -1,6 +1,6 @@
 #pragma once
 #include <list>
-#include <exception
+#include <exception>
 #include <format>
 #include "OrderType.h"
 #include "Side.h"
