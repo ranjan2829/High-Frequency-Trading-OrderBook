@@ -417,5 +417,18 @@ public:
      UpdateLevelData(price,quantity,isFullyFilled?LevelData::Action::Remove:LevelData::Action::MATCH);
 
  }
+void OrderBook::UpdateLevelData(Price price, Quantity quantity, LevelData::Action action) {
+     auto& data=data_[price];
+     data.count_+=action==LevelData::Action::Remove ? -1 : action == LevelData::Action::ADD ? 1:0;
+     if(Action==LevelData::Action::Remove || action== LevelData::Action::MATCH){
+         data.quantity_-=quantity;
+     }
+     else{
+         data.quantity_+=quantity;
 
+     }
+     if(data.count_==0){
+         data_.erase(price);
+     }
+ }
 
