@@ -1,7 +1,3 @@
-//
-// Created by Ranjan shahaji shitole on 02/06/24.
-//
-
 #pragma once
 
 #include "Order.h"
@@ -10,10 +6,10 @@ class OrderModify
 {
 public:
     OrderModify(OrderId orderId, Side side, Price price, Quantity quantity)
-            : orderId_{ orderId }
-            , price_{ price }
-            , side_{ side }
-            , quantity_{ quantity }
+        : orderId_{ orderId }
+        , price_{ price }
+        , side_{ side }
+        , quantity_{ quantity }
     { }
 
     OrderId GetOrderId() const { return orderId_; }
@@ -32,3 +28,4 @@ private:
     Side side_;
     Quantity quantity_;
 };
+

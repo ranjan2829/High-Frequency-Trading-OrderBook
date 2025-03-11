@@ -74,3 +74,4 @@ public:
     std::size_t Size() const;
     OrderbookLevelInfos GetOrderInfos() const;
 };
+
